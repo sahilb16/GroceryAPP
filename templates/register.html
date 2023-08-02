@@ -1,0 +1,189 @@
+<DOCTYPE! html>
+    <html>
+
+    <head>
+        <title>
+        </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="static/style.css">
+        <style>
+            .center {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top:30px
+            }
+            .login-text {
+              font-size: 2.5em;
+              font-weight: bold;
+            }
+            .main-box{
+                margin-top: 80px;
+                margin-left: 50px;
+                margin-right: 50px;
+            }
+          </style>
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #e3f2fd;" data-bs-theme="dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">Grocery Management System</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{{url_for('homepage')}}">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Contact Us</a>
+                  </li>
+                </ul>
+                <!-- <form class="d-flex" role="search">
+                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form> -->
+              </div>
+            </div>
+          </nav>
+          <main>
+            <div class="login-text">
+                <div class="center">
+                    Register
+                </div>
+            </div>
+           
+                <form action="{{ url_for('registeruser') }}" enctype="multipart/form-data" method="post" class="row g-3 needs-validation" novalidate>
+                        <div class="col-md-6">
+                        <label class="form-label">Username</label>
+                        <input type="email" class="form-control ml-5" id="username" name="username">
+                        </div>
+
+                        <div class="col-md-6">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control ml-5" id="password" name="password">
+                        </div>
+                        
+                        <div class="col-md-4">
+                        <label class="form-label">First name</label>
+                        <input type="text" class="form-control ml-5" id="name1" name="name1"  required>
+
+                        </div>
+                        <div class="col-md-4">
+                        <label class="form-label">Last name</label>
+                        <input type="text" class="form-control ml-5" id="name2" name="name2"  required>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Address</label>
+                            <input type="text" class="form-control ml-5" id="address1" name="address1" placeholder="1234 Main St">
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Address 2</label>
+                            <input type="text" class="form-control ml-5" id="address2" name="address2" placeholder="Apartment, studio, or floor">
+                        </div>
+
+                        <div class="col-md-4">
+                          <label class="form-label">E-mail</label>
+                          <input type="email" class="form-control ml-5 form-control" id="email" name="email" aria-describedby="inputGroupPrepend" required>
+                          <div class="valid-feedback">
+                            Looks good!
+                          </div>
+                          <div class="invalid-feedback">
+                            Please enter valid email-id.
+                          </div>
+                        </div> 
+                        
+                        
+                        <div class="col-md-6">
+                          <label class="form-label">City</label>
+                          <input type="text" class="form-control ml-5" id="city" name="city" required>
+                        </div>
+
+                        <div class="col-md-3">
+                          <label class="form-label">State</label>
+                          <select class="form-select" id="state" name="state" required>
+                              <option>Choose...</option>
+                              <option>Andhra Pradesh</option>
+                              <option>Arunachal Pradesh</option>
+                              <option>Assam</option>
+                              <option>Bihar</option>
+                              <option>Chhattisgarh</option>
+                              <option>Goa</option>
+                              <option>Gujarat</option>
+                              <option>Haryana</option>
+                              <option>Himachal Pradesh</option>
+                              <option>Jharkhand</option>
+                              <option>Karnataka</option>
+                              <option>Kerala</option>
+                              <option>Madhya Pradesh</option>
+                              <option>Maharashtra</option>
+                              <option>Manipur</option>
+                              <option>Meghalaya</option>
+                              <option>Mizoram</option>
+                              <option>Nagaland</option>
+                              <option>Odisha</option>
+                              <option>Punjab</option>   
+                              <option>Rajasthan</option>   
+                              <option>Sikkim</option>   
+                              <option>Tamil Nadu</option>   
+                              <option>Telangana</option>   
+                              <option>Tripura</option>   
+                              <option>Uttar Pradesh</option>   
+                              <option>Uttarakhand</option>
+                              <option>West Bengal</option>
+                          </select>
+                        </div>
+
+                        <div class="col-md-4">
+                          <label class="form-label">Contact Number</label>
+                          <span class="input-group-text" id="inputGroupPrepend">+91</span>
+                          <input type="tel" pattern="[7-9]{1}[0-9]{9}" class="form-control" id="phno" name="phno" aria-describedby="inputGroupPrepend" required>
+                          <div class="valid-feedback">
+                            Looks good!
+                          </div>
+                          <div class="invalid-feedback">
+                            Please enter a valid Phone Number.
+                          </div>
+                        </div>
+
+                        <div class="center">
+                          {% if error %}
+                          <p>{{ error }}</p>
+                          {% endif %}
+                        </div>
+
+                        <div class="center">
+                          <button type="submit" class="btn btn-primary center ">Submit</button>
+                        </div>
+                </form>
+            
+          </main>
+          <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+(() => {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  const forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.from(forms).forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+          </script>
+    </body>
+</html>

@@ -1,0 +1,159 @@
+<DOCTYPE! html>
+    <html>
+
+    <head>
+        <title>
+        </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <!-- <link rel="stylesheet" href="static/style.css"> -->
+        <style>
+            .container {
+              width: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              overflow: auto;
+              flex-direction: column;
+            }
+            
+            .block-letters {
+              font-size: 2em;
+              text-transform: uppercase;
+              letter-spacing: 0.3em;
+              font-weight: bold;
+              margin-bottom: 20px;
+            }
+        
+        
+            .flex-container {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              height: 100vh;
+              background-color: lightblue;
+            }
+            .form-container {
+              padding: 20px;
+              background-color: white;
+              border-radius: 5px;
+            }
+            .form-container input[type="text"] {
+              width: 200px;
+              height: 30px;
+              padding: 5px;
+              font-size: 16px;
+              border: 1px solid #ccc;
+              border-radius: 3px;
+            }
+
+            .submit{
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-top: 60px;
+            }
+            .error{
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+            font-size: 2em;
+          }
+          </style>
+    </head>
+
+    <body>
+
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #e3f2fd;" data-bs-theme="dark">
+            <div class="container-fluid">
+              <a class="navbar-brand" href="#">GMS | <t>{{manager}}</t>'s dashboard</a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="/managerlogin/managerdash/{{ manager }}">Home</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#">Contact Us</a>
+                  </li>
+                  <li class="nav-item">
+                    <div id="liveAlertPlaceholder" class="center">
+                    </div>
+                    <button type="button" class="btn " id="liveAlertBtn">Logout</button>
+                  </li>
+                </ul>
+
+                <!-- <form class="d-flex" role="search">
+                  <input class="form-control me-2" type="search" placeholder="Search " aria-label="Search">
+                  <button class="btn btn-outline-success" type="submit">Search</button>
+                </form> -->
+              </div>
+            </div>
+          </nav>
+          
+          <form method="post" enctype="application/json">
+            <div class="container">
+                <div class="block-letters my-5">New Product</div>
+        
+                <div class="center">
+                    <label for="code">Enter the Item Code</label>
+                    <input type="text" class="form-control" id="itemcode" name="itemcode" placeholder="Item Code" required>
+                </div>
+        
+                <div class="center">
+                    <label for="name">Enter the Item Name</label>
+                    <input type="text" class="form-control" id="itemname" name="itemname" placeholder="Item Name" required>
+                </div>
+
+                <div class="center">
+                    <label for="name">Enter the Item Rate</label>
+                    <input type="Integer" class="form-control" id="rate" name="rate" placeholder="Rate per unit" required>
+                </div>
+
+                <div class="center">
+                    <label for="name">Enter the Item Manufacture Date</label>
+                    <input type="date" class="form-control" id="mdate" name="mdate" placeholder="Manufacture date" required>
+                </div>
+
+                <div class="center">
+                    <label for="name">Enter the Item Expiry Date</label>
+                    <input type="date" class="form-control" id="edate" name="edate" placeholder="Expiry date" required>
+                </div>
+                
+                <div class="center">
+                    <label for="name">Enter the Item Stock</label>
+                    <input type="Integer" class="form-control" id="stock" name="stock" placeholder="stock" required>
+                </div>
+                <div class="error">
+                  {% if error %}
+                  <p>{{ error }}</p>
+                  {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+        
+
+        <script>
+          const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+          const appendAlert = (message, type) => {
+          const wrapper = document.createElement('div')
+          wrapper.innerHTML = [
+            `<div class="alert alert-${type} alert-dismissible" role="alert" style="position:absolute">`,
+            `   <div>${message}<a href="{{url_for('homepage')}}"> log out</a>?</div>`,
+            '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+            '</div>'
+          ].join('')
+          alertPlaceholder.append(wrapper)
+          }
+          const alertTrigger = document.getElementById('liveAlertBtn')
+          if (alertTrigger) {
+            alertTrigger.addEventListener('click', () => {
+              appendAlert('Are you sure you want to ', 'success')
+          })
+           }
+        </script>  
+    </body>
+</html>

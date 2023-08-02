@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+
+    </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="static/style.css">
+    <style>
+        .flex-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .flex-box {
+            width: 250px;
+            height: 250px;
+            margin: 10px;
+            padding: 10px;
+            margin-top: 100px;
+            margin-left: 140px;
+            margin-bottom: 100px;
+            background-color:rgb(95, 87, 95);
+            border: 6px inset #f7df08;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-radius: 10px;
+        }
+
+        .item-name {
+            margin-top: 30%;
+            margin-left: 20%;
+            margin-right:20%;
+            font-weight: bold;
+            color: aliceblue;
+            align-items: center;
+            margin-left: 35%;
+        }
+
+
+
+        .blue-button {
+            background-color: blue;
+            color: white;
+            margin-left: 35%;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .options {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .cart-button {
+            
+            cursor: pointer;
+            /* background-color: rgb(180, 189, 189); */
+            border-radius: 10px;
+        }
+        .error{
+          margin-top: 100px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 2.5em;
+        }    
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #e3f2fd;" data-bs-theme="dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">GMS | <t>{{manager}}</t>'s dashboard</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/customerlogin/customerdash/{{ manager }}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                <div id="liveAlertPlaceholder" class="center">
+                </div>
+                <button type="button" class="btn " id="liveAlertBtn">Logout</button>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/customerlogin/customerdash/viewcart/{{ manager }}">View Cart</a>
+              </li>
+            </ul>
+            <form method="post" action="/searchcust/{{ manager }}" class="d-flex" role="search">
+              <select class="form-select" id="option" name="option" required>
+              <option>Search for</option>
+              <option>Category</option>
+              <option>Product</option>
+              </select>
+              <input class="form-control me-2" name="searched" id="searched" type="search" placeholder="Enter Name " aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+
+    
+      <div class="error">
+        {% if error %}
+        <p>{{ error }}</p>
+        {% endif %}
+      </div>
+    <div class="flex-container">
+        {% for item in items %}
+        <div class="flex-box">
+            <div class="item-name">{{ items[item].name }}</div>
+            <div class="center" style="color: aliceblue;">Stock : {{ items[item].stock }}</div>
+            <div class="options">
+                <div style="color: aliceblue;">
+                    Rate : {{ items[item].rate}}
+                </div>
+                </a>
+                <a href="/customerlogin/customerdash/cart/{{ manager }}/{{ item }}">
+                <div class="cart-button" >
+                  <button type="button" class="btn btn-outline-warning">
+                    Add to Cart
+                </button>
+                </div>
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    <!-- </div>
+    <a class="plus-button" href="/managerlogin/managerdash/newcategory/{{ manager }}">+</a>  
+  </div> -->
+  <script>
+    const alertPlaceholder = document.getElementById('liveAlertPlaceholder')
+    const appendAlert = (message, type) => {
+    const wrapper = document.createElement('div')
+    wrapper.innerHTML = [
+      `<div class="alert alert-${type} alert-dismissible" role="alert" style="position:absolute">`,
+      `   <div>${message}<a href="{{url_for('homepage')}}"> log out</a>?</div>`,
+      '   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>',
+      '</div>'
+    ].join('')
+    alertPlaceholder.append(wrapper)
+    }
+    const alertTrigger = document.getElementById('liveAlertBtn')
+    if (alertTrigger) {
+      alertTrigger.addEventListener('click', () => {
+        appendAlert('Are you sure you want to ', 'success')
+    })
+     }
+  </script>
+</body>
+</html>
